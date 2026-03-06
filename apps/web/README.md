@@ -1,73 +1,111 @@
-# React + TypeScript + Vite
+## Google Forms Lite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small web application for creating and filling out forms.
+The project is inspired by the functionality of Google Forms and implements a basic form builder, response submission, and results viewing.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Functionality
 
-## React Compiler
+The application allows you to:
+create forms
+add questions
+fill out forms
+save responses
+view user responses
+Main pages:
+Home — list of all forms
+Create Form — create a new form
+Fill Form — fill out a form
+Responses — view responses
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+## Technologies
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Frontend:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+React
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+TypeScript
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Vite
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Redux Toolkit
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+RTK Query
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+React Router
+
+Backend:
+
+Node.js
+
+Apollo Server
+
+GraphQL
+
+
+ ## Installation and launch
+1.Clone the repository
+git clone https://github.com/IlliaRomanuk/google-forms-lite.git
+cd apps
+cd web
+
+frontend
+npm install
+
+backend
+cd server
+npm install
+
+Project launch
+
+
+## 1.Start the server
+cd server
+npm run dev
+
+The server will be available:
+http://localhost:4000/graphql
+
+
+## 2. Start the frontend
+cd client
+npm run dev
+
+The application will open:
+http://localhost:5173
+
+
+## GraphQL API
+Main requests:
+Obtain forms
+query {
+  forms {
+    id
+    title
+  }
+}
+
+Create a form
+mutation {
+  createForm(title: "Test Form") {
+    id
+    title
+  }
+}
+
+Send answers
+mutation {
+  submitResponse(formId: "1", answers: ["answer1"])
+}
+
+
+## Architecture
+
+The project is built as a monorepo and contains:
+
+- client — React application
+- server — GraphQL API
+
+The frontend communicates with the backend via GraphQL queries and mutations.
+Data is stored in an in-memory store on the server.
