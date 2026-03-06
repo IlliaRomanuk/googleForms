@@ -2,7 +2,6 @@ import { gql } from "apollo-server";
 import { forms, responses } from "./data";
 import { v4 as uuidv4 } from "uuid";
 
-// GraphQL типы
 export const typeDefs = gql`
   enum QuestionType {
     TEXT
@@ -54,18 +53,21 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    createForm(title: String!, description: String, questions: [QuestionInput!]!): Form!
+    createForm(
+      title: String!
+      description: String
+      questions: [QuestionInput!]!
+    ): Form!
     submitResponse(formId: ID!, answers: [AnswerInput!]!): Response!
   }
 `;
 
-// Резолверы
 export const resolvers = {
   Query: {
     forms: () => forms,
-    form: (_: any, { id }: { id: string }) => forms.find(f => f.id === id),
+    form: (_: any, { id }: { id: string }) => forms.find((f) => f.id === id),
     responses: (_: any, { formId }: { formId: string }) =>
-      responses.filter(r => r.formId === formId),
+      responses.filter((r) => r.formId === formId),
   },
   Mutation: {
     createForm: (_: any, { title, description, questions }: any) => {

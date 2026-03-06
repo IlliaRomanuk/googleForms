@@ -6,13 +6,14 @@ interface OptionItemProps {
   onRemove: () => void;
 }
 
-const OptionItem: React.FC<OptionItemProps> = ({ value, onChange, onRemove }) => {
+const OptionItem: React.FC<OptionItemProps> = ({
+  value,
+  onChange,
+  onRemove,
+}) => {
   return (
     <div>
-      <input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
+      <input value={value} onChange={(e) => onChange(e.target.value)} />
       <button onClick={onRemove}>Delete</button>
     </div>
   );

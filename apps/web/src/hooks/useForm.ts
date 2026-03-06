@@ -1,43 +1,3 @@
-// import { useState } from "react";
-// import { v4 as uuid } from "uuid";
-// import { Question } from "../types/form.types";
-
-// export function useFormBuilder() {
-
-//   const [title, setTitle] = useState("");
-//   const [questions, setQuestions] = useState<Question[]>([]);
-
-//   const addQuestion = () => {
-//     setQuestions(prev => [
-//       ...prev,
-//       {
-//         id: uuid(),
-//         title: "",
-//         type: "TEXT",
-//         options: []
-//       }
-//     ]);
-//   };
-
-//   const updateQuestion = (id: string, data: Partial<Question>) => {
-//     setQuestions(prev =>
-//       prev.map(q => q.id === id ? { ...q, ...data } : q)
-//     );
-//   };
-
-//   const removeQuestion = (id: string) => {
-//     setQuestions(prev => prev.filter(q => q.id !== id));
-//   };
-
-//   return {
-//     title,
-//     setTitle,
-//     questions,
-//     addQuestion,
-//     updateQuestion,
-//     removeQuestion
-//   };
-// }
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { BuilderQuestion, QuestionType } from "../types/form.types";
@@ -50,7 +10,8 @@ export const useFormBuilder = () => {
       id: uuidv4(),
       title: "",
       type,
-      options: type === "MULTIPLE_CHOICE" || type === "CHECKBOX" ? [""] : undefined,
+      options:
+        type === "MULTIPLE_CHOICE" || type === "CHECKBOX" ? [""] : undefined,
     };
     setQuestions((prev) => [...prev, newQuestion]);
   };
@@ -68,9 +29,7 @@ export const useFormBuilder = () => {
   const addOption = (questionId: string) => {
     setQuestions((prev) =>
       prev.map((q) =>
-        q.id === questionId
-          ? { ...q, options: [...(q.options || []), ""] }
-          : q
+        q.id === questionId ? { ...q, options: [...(q.options || []), ""] } : q
       )
     );
   };
@@ -79,7 +38,10 @@ export const useFormBuilder = () => {
     setQuestions((prev) =>
       prev.map((q) =>
         q.id === questionId && q.options
-          ? { ...q, options: q.options.map((opt, i) => (i === index ? value : opt)) }
+          ? {
+              ...q,
+              options: q.options.map((opt, i) => (i === index ? value : opt)),
+            }
           : q
       )
     );
